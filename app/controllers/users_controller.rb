@@ -16,6 +16,24 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
+  def follow
+    @user = User.find(params[:id])
+    current_user.follow(@user)
+    redirect_to @user
+  end
+
+  def unfollow
+    @user = User.find(params[:id])
+    current_user.unfollow(@user)
+    redirect_to @user
+  end
+
+  private
+
   def user_params
     params.require(:user).permit(:email, :name, :password, :password_confirmation)
   end
